@@ -271,10 +271,6 @@ function App() {
               </StyledButton>
             </span>
             <s.SpacerSmall />
-            <StyledLink target={"_blank"} href={"/config/EmperorwhitePaper.pdf"}>
-              {CONFIG.TUTOR}
-            </StyledLink>
-            <s.SpacerSmall />
             {Number(data.Supply) >= CONFIG.MAX_SUPPLY ? (
               <>
                 <s.TextTitle
