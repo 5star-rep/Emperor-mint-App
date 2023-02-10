@@ -260,16 +260,6 @@ function App() {
               }}
             >
               <StyledButton
-                onClick={(e) => {
-                  window.open("/config/EmperorWhitePaper.pdf", "_blank");
-                }}
-                style={{
-                  margin: "5px",
-                }}
-              >
-                W/Paper
-              </StyledButton>
-              <StyledButton
                 style={{
                   margin: "5px",
                 }}
@@ -407,7 +397,7 @@ function App() {
             }}
           >
             Please make sure you are connected to the right network (
-            {CONFIG.NETWORK.NAME} TestNet) and with a funded wallet. Please note:
+            {CONFIG.NETWORK.NAME} Mainnet) and with a funded wallet. Please note:
             After a successful minting, the Supply will increase and that will be your tokenId.
           </s.TextDescription>
           <s.SpacerSmall />
