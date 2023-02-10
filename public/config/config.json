@@ -1,10 +1,10 @@
 {
-  "CONTRACT_ADDRESS": "0x662115d016c8e9df72846536ce539bc7b5bc4349",
-  "SCAN_LINK": "https://scan.test.btcs.network/address/0x662115d016c8e9df72846536ce539bc7b5bc4349",
+  "CONTRACT_ADDRESS": "0xeb946cfd4ce13202dfc8bf0d2f422be8eba25e87",
+  "SCAN_LINK": "https://scan.coredao.org/address/0xeb946cfd4ce13202dfc8bf0d2f422be8eba25e87",
   "NETWORK": {
     "NAME": "CORE",
-    "SYMBOL": "tCORE",
-    "ID": 1115
+    "SYMBOL": "CORE",
+    "ID": 1116
   },
   "NFT_NAME": "EMPEROR NFT",
   "SCAN": "CONTRACT",
@@ -12,9 +12,9 @@
   "HANDLE": "TWITTER",
   "TUTOR": "GUIDE",
   "SYMBOL": "EMPEROR",
-  "MAX_SUPPLY": 102,
-  "WEI_COST": 2000000000000000000,
-  "DISPLAY_COST": 2,
+  "MAX_SUPPLY": 1000,
+  "WEI_COST": 1000000000000000000,
+  "DISPLAY_COST": 1,
   "GAS_LIMIT": 285000,
   "MARKETPLACE": "eClub",
   "MARKETPLACE_LINK": "https://t.me/emperorsclub",
