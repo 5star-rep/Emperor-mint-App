@@ -101,7 +101,7 @@ function App() {
   const [claimingNft, setClaimingNft] = useState(false);
   const [feedback, setFeedback] = useState(`Click mint to buy 1 NFT.`);
   const [tokenId, setTokenId] = useState(0);
-  const [mintAmount] = use state(1);
+  const [mintAmount] = useState(1);
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
     SCAN_LINK: "",
