@@ -552,7 +552,7 @@ function App() {
                         }}
                       >
                         UNSTAKE
-                      </StyledBotton>
+                      </StyledButton>
                     </s.Container>
                       <s.SpacerSmall />
                       <StyledButton
@@ -564,7 +564,7 @@ function App() {
                         }}
                       >
                         CLAIM
-                      </StyledBotton>
+                      </StyledButton>
                       <s.SpacerSmall />
                       <StyledButton
                         disabled={claimingNft ? 1 : 0}
@@ -575,7 +575,7 @@ function App() {
                         }}
                       >
                         ENABLE
-                      </StyledBotton>
+                      </StyledButton>
                       <s.SpacerSmall />
                       <StyledButton
                         disabled={claimingNft ? 1 : 0}
@@ -586,7 +586,7 @@ function App() {
                         }}
                       >
                         {claimingNft ? "BUSY" : "MINT"}
-                      </StyledBotton>
+                      </StyledButton>
                   </>
                 )}
               </>
