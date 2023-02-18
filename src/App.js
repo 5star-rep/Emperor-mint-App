@@ -100,7 +100,8 @@ function App() {
   const data = useSelector((state) => state.data);
   const [claimingNft, setClaimingNft] = useState(false);
   const [feedback, setFeedback] = useState(`Click mint to buy 1 NFT.`);
-  const [mintAmount, setMintAmount] = useState(1);
+  const [tokenId, setTokenId] = useState(0);
+  const [mintAmount] = use state(1);
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
     SCAN_LINK: "",
@@ -159,20 +160,148 @@ function App() {
       });
   };
 
-  const decrementMintAmount = () => {
-    let newMintAmount = mintAmount - 1;
-    if (newMintAmount < 1) {
-      newMintAmount = 1;
-    }
-    setMintAmount(newMintAmount);
+  const stakeNft = () => {
+    let gasLimit = CONFIG.GAS_LIMIT;
+    let totalGasLimit = String(gasLimit);
+    console.log("Gas limit: ", totalGasLimit);
+    setFeedback(`Stake processing...`);
+    setClaimingNft(true);
+    blockchain.smartContract.methods
+      .stake(tokenId)
+      .send({
+        gasLimit: String(totalGasLimit),
+        to: CONFIG.CONTRACT_ADDRESS,
+        from: blockchain.account,
+      })
+      .once("error", (err) => {
+        console.log(err);
+        setFeedback("Sorry, something went wrong please try again later.");
+        setClaimingNft(false);
+      })
+      .then((receipt) => {
+        console.log(receipt);
+        setFeedback(
+          `Stake successful ✔️`
+        );
+        setClaimingNft(false);
+        dispatch(fetchData(blockchain.account));
+      });
   };
 
-  const incrementMintAmount = () => {
-    let newMintAmount = mintAmount + 1;
-    if (newMintAmount > 1) {
-      newMintAmount = 1;
+  const unStakeNft = () => {
+    let gasLimit = CONFIG.GAS_LIMIT;
+    let totalGasLimit = String(gasLimit);
+    console.log("Gas limit: ", totalGasLimit);
+    setFeedback(`Unstake processing...`);
+    setClaimingNft(true);
+    blockchain.smartContract.methods
+      .withdraw(tokenId)
+      .send({
+        gasLimit: String(totalGasLimit),
+        to: CONFIG.CONTRACT_ADDRESS,
+        from: blockchain.account,
+      })
+      .once("error", (err) => {
+        console.log(err);
+        setFeedback("Sorry, something went wrong please try again later.");
+        setClaimingNft(false);
+      })
+      .then((receipt) => {
+        console.log(receipt);
+        setFeedback(
+          `Unstake successful ✔️`
+        );
+        setClaimingNft(false);
+        dispatch(fetchData(blockchain.account));
+      });
+  };
+
+  const claimReward = () => {
+    let gasLimit = CONFIG.GAS_LIMIT;
+    let totalGasLimit = String(gasLimit);
+    console.log("Gas limit: ", totalGasLimit);
+    setFeedback(`Claim processing...`);
+    setClaimingNft(true);
+    blockchain.smartContract.methods
+      .claimRewards()
+      .send({
+        gasLimit: String(totalGasLimit),
+        to: CONFIG.CONTRACT_ADDRESS,
+        from: blockchain.account,
+      })
+      .once("error", (err) => {
+        console.log(err);
+        setFeedback("Sorry, something went wrong please try again later.");
+        setClaimingNft(false);
+      })
+      .then((receipt) => {
+        console.log(receipt);
+        setFeedback(
+          `Claim successful ✔️`
+        );
+        setClaimingNft(false);
+        dispatch(fetchData(blockchain.account));
+      });
+  };
+
+  const enable = () => {
+    let gasLimit = CONFIG.GAS_LIMIT;
+    let totalGasLimit = String(gasLimit);
+    console.log("Gas limit: ", totalGasLimit);
+    setFeedback(`Enable processing...`);
+    setClaimingNft(true);
+    blockchain.smartContract.methods
+      .EnableMint()
+      .send({
+        gasLimit: String(totalGasLimit),
+        to: CONFIG.CONTRACT_ADDRESS,
+        from: blockchain.account,
+      })
+      .once("error", (err) => {
+        console.log(err);
+        setFeedback("Sorry, something went wrong please try again later.");
+        setClaimingNft(false);
+      })
+      .then((receipt) => {
+        console.log(receipt);
+        setFeedback(
+          `Enable successful ✔️`
+        );
+        setClaimingNft(false);
+        dispatch(fetchData(blockchain.account));
+      });
+  };
+
+  const decrementTokenId = () => {
+    let newTokenId = tokenId - 1;
+    if (newTokenId < 1) {
+      newTokenId = 1;
     }
-    setMintAmount(newMintAmount);
+    setTokenId(newTokenId);
+  };
+
+  const incrementTokenId = () => {
+    let newTokenId = tokenId + 1;
+    if (newTokenId > 1000) {
+      newTokenId = 1000;
+    }
+    setTokenId(newTokenId);
+  };
+
+  const decrementTokenId50 = () => {
+    let newTokenId = tokenId - 50;
+    if (newTokenId < 0) {
+      newTokenId = 0;
+    }
+    setTokenId(newTokenId);
+  };
+
+  const incrementTokenId50 = () => {
+    let newTokenId = tokenId + 50;
+    if (newTokenId > 1000) {
+      newTokenId = 1000;
+    }
+    setTokenId(newTokenId);
   };
 
   const getData = () => {
@@ -349,7 +478,106 @@ function App() {
                       {feedback}
                     </s.TextDescription>
                     <s.SpacerMedium />
+                    <s.SpacerMedium />
+                      <s.TextDescription
+                        style={{
+                          textAlign: "center",
+                          color: "var(--accent-text)",
+                        }}
+                      >
+                        {tokenId}
+                      </s.TextDescription>
+                      <s.SpacerSmall />
                     <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                      <StyledRoundButton
+                        style={{ lineHeight: 0.4 }}
+                        disabled={claimingNft ? 1 : 0}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          decrementTokenId50();
+                        }}
+                      >
+                        -50
+                      </StyledRoundButton>
+                      <s.SpacerMedium />
+                      <StyledRoundButton
+                        style={{ lineHeight: 0.4 }}
+                        disabled={claimingNft ? 1 : 0}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          decrementTokenId();
+                        }}
+                      >
+                        -1
+                      </StyledRoundButton>
+                      <s.SpacerMedium />
+                      <StyledRoundButton
+                        disabled={claimingNft ? 1 : 0}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          incrementTokenId();
+                        }}
+                      >
+                        +1
+                      </StyledRoundButton>
+                      <s.SpacerMedium />
+                      <StyledRoundButton
+                        disabled={claimingNft ? 1 : 0}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          incrementTokenId50();
+                        }}
+                      >
+                        +50
+                      </StyledRoundButton>
+                    </s.Container>
+                    <s.SpacerSmall />
+                    <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                      <StyledButton
+                        disabled={claimingNft ? 1 : 0}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          stakeNft();
+                          getData();
+                        }}
+                      >
+                        STAKE
+                      </StyledButton>
+                      <s.SpacerSmall />
+                      <StyledButton
+                        disabled={claimingNft ? 1 : 0}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          unstakeNft();
+                          getData();
+                        }}
+                      >
+                        UNSTAKE
+                      </StyledBotton>
+                    </s.Container>
+                      <s.SpacerSmall />
+                      <StyledButton
+                        disabled={claimingNft ? 1 : 0}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          claimReward();
+                          getData();
+                        }}
+                      >
+                        CLAIM
+                      </StyledBotton>
+                      <s.SpacerSmall />
+                      <StyledButton
+                        disabled={claimingNft ? 1 : 0}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          enable();
+                          getData();
+                        }}
+                      >
+                        ENABLE
+                      </StyledBotton>
+                      <s.SpacerSmall />
                       <StyledButton
                         disabled={claimingNft ? 1 : 0}
                         onClick={(e) => {
@@ -359,8 +587,7 @@ function App() {
                         }}
                       >
                         {claimingNft ? "BUSY" : "MINT"}
-                      </StyledButton>
-                    </s.Container>
+                      </StyledBotton>
                   </>
                 )}
               </>
