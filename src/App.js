@@ -570,17 +570,6 @@ function App() {
                         disabled={claimingNft ? 1 : 0}
                         onClick={(e) => {
                           e.preventDefault();
-                          enable();
-                          getData();
-                        }}
-                      >
-                        ENABLE
-                      </StyledButton>
-                      <s.SpacerSmall />
-                      <StyledButton
-                        disabled={claimingNft ? 1 : 0}
-                        onClick={(e) => {
-                          e.preventDefault();
                           claimNFTs();
                           getData();
                         }}
