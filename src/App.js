@@ -478,7 +478,6 @@ function App() {
                       {feedback}
                     </s.TextDescription>
                     <s.SpacerMedium />
-                    <s.SpacerMedium />
                       <s.TextDescription
                         style={{
                           textAlign: "center",
