@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { connect } from "./redux/blockchain/blockchainActions";
+import { connect2 } from "./redux/blockchain/tokenActions";
 import { fetchData } from "./redux/data/dataActions";
+import { fetchData2 } from "./redux/data/tokendataActions";
 import * as s from "./styles/globalStyles";
 import styled from "styled-components";
 
@@ -104,6 +106,7 @@ function App() {
   const [mintAmount] = useState(1);
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
+    TOKEN_ADDRESS: "",
     SCAN_LINK: "",
     NETWORK: {
       NAME: "",
@@ -136,7 +139,6 @@ function App() {
     console.log("Cost: ", totalCostWei);
     console.log("Gas limit: ", totalGasLimit);
     setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
-    setClaimingNft(true);
     blockchain.smartContract.methods
       .mint(blockchain.account, mintAmount)
       .send({
@@ -148,14 +150,12 @@ function App() {
       .once("error", (err) => {
         console.log(err);
         setFeedback("Sorry, something went wrong please try again later.");
-        setClaimingNft(false);
       })
       .then((receipt) => {
         console.log(receipt);
         setFeedback(
           `WOW, the ${CONFIG.NFT_NAME} is now yours! import to wallet to view it.`
         );
-        setClaimingNft(false);
         dispatch(fetchData(blockchain.account));
       });
   };
@@ -176,7 +176,6 @@ function App() {
       .once("error", (err) => {
         console.log(err);
         setFeedback("Sorry, something went wrong please try again later.");
-        setClaimingNft(false);
       })
       .then((receipt) => {
         console.log(receipt);
@@ -204,14 +203,12 @@ function App() {
       .once("error", (err) => {
         console.log(err);
         setFeedback("Sorry, something went wrong please try again later.");
-        setClaimingNft(false);
       })
       .then((receipt) => {
         console.log(receipt);
         setFeedback(
           `Unstake successful ✔️`
         );
-        setClaimingNft(false);
         dispatch(fetchData(blockchain.account));
       });
   };
@@ -221,7 +218,6 @@ function App() {
     let totalGasLimit = String(gasLimit);
     console.log("Gas limit: ", totalGasLimit);
     setFeedback(`Claim processing...`);
-    setClaimingNft(true);
     blockchain.smartContract.methods
       .claimRewards()
       .send({
@@ -232,43 +228,40 @@ function App() {
       .once("error", (err) => {
         console.log(err);
         setFeedback("Sorry, something went wrong please try again later.");
-        setClaimingNft(false);
       })
       .then((receipt) => {
         console.log(receipt);
         setFeedback(
           `Claim successful ✔️`
         );
-        setClaimingNft(false);
         dispatch(fetchData(blockchain.account));
       });
   };
 
-  const enable = () => {
+  const approveStake = () => {
     let gasLimit = CONFIG.GAS_LIMIT;
     let totalGasLimit = String(gasLimit);
+    let stakingContract = String(CONFIG.CONTRACT_ADDRESS);
     console.log("Gas limit: ", totalGasLimit);
-    setFeedback(`Enable processing...`);
-    setClaimingNft(true);
+    setFeedback(`Approve processing...`);
     blockchain.smartContract.methods
-      .EnableMint()
+      .setApprovalForAll(stakingContract, true)
       .send({
         gasLimit: String(totalGasLimit),
-        to: CONFIG.CONTRACT_ADDRESS,
+        to: CONFIG.TOKEN_ADDRESS,
         from: blockchain.account,
       })
       .once("error", (err) => {
         console.log(err);
         setFeedback("Sorry, something went wrong please try again later.");
-        setClaimingNft(false);
       })
       .then((receipt) => {
         console.log(receipt);
         setFeedback(
-          `Enable successful ✔️`
+          `Approve successful ✔️`
         );
-        setClaimingNft(false);
         dispatch(fetchData(blockchain.account));
+        dispatch(connect());
       });
   };
 
@@ -447,7 +440,7 @@ function App() {
                     <StyledButton
                       onClick={(e) => {
                         e.preventDefault();
-                        dispatch(connect());
+                        dispatch(connect2());
                         getData();
                       }}
                     >
@@ -533,7 +526,6 @@ function App() {
                     <s.SpacerSmall />
                     <s.Container ai={"center"} jc={"center"} fd={"row"}>
                       <StyledButton
-                        disabled={claimingNft ? 1 : 0}
                         onClick={(e) => {
                           e.preventDefault();
                           stakeNft();
@@ -544,7 +536,6 @@ function App() {
                       </StyledButton>
                       <s.SpacerSmall />
                       <StyledButton
-                        disabled={claimingNft ? 1 : 0}
                         onClick={(e) => {
                           e.preventDefault();
                           unstakeNft();
@@ -556,7 +547,6 @@ function App() {
                     </s.Container>
                       <s.SpacerSmall />
                       <StyledButton
-                        disabled={claimingNft ? 1 : 0}
                         onClick={(e) => {
                           e.preventDefault();
                           claimReward();
@@ -567,14 +557,23 @@ function App() {
                       </StyledButton>
                       <s.SpacerSmall />
                       <StyledButton
-                        disabled={claimingNft ? 1 : 0}
                         onClick={(e) => {
                           e.preventDefault();
                           claimNFTs();
                           getData();
                         }}
                       >
-                        {claimingNft ? "BUSY" : "MINT"}
+                        MINT
+                      </StyledButton>
+                      <s.SpacerSmall />
+                      <StyledButton
+                        onClick={(e) => {
+                          e.preventDefault();
+                          approveStake();
+                          getData();
+                        }}
+                      >
+                        APPROVE STAKE
                       </StyledButton>
                   </>
                 )}
