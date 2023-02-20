@@ -536,7 +536,7 @@ function App() {
                       <StyledButton
                         onClick={(e) => {
                           e.preventDefault();
-                          unstakeNft();
+                          unStakeNft();
                           getData();
                         }}
                       >
