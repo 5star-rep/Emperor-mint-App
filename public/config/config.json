@@ -1,5 +1,6 @@
 {
-  "CONTRACT_ADDRESS": "0xeb946cfd4ce13202dfc8bf0d2f422be8eba25e87",
+  "CONTRACT_ADDRESS": "0x84692516997fA3D459b7496Cc5F78152984cbeF8",
+  "TOKEN_ADDRESS": "0xeb946cfd4ce13202dfc8bf0d2f422be8eba25e87",
   "SCAN_LINK": "https://scan.coredao.org/address/0xeb946cfd4ce13202dfc8bf0d2f422be8eba25e87",
   "NETWORK": {
     "NAME": "CORE",
