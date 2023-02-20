@@ -598,7 +598,7 @@ function App() {
             />
           </s.Container>
         </ResponsiveWrapper>
-        <s.SpacerMedium />
+        <s.SpacerSmall />
         <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
                 <StyledLink target={"_blank"} href={CONFIG.COIN_LINK}>
                   {CONFIG.COIN}
