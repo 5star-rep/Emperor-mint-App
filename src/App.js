@@ -366,7 +366,7 @@ function App() {
                           color: "var(--accent-text)",
                         }}
                       >
-                        {tokenId}
+                        stakers
                       </s.TextDescription>
             <s.TextDescription
               style={{
