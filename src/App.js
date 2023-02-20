@@ -117,7 +117,7 @@ function App() {
     SCAN: "",
     MARKET: "",
     HANDLE: "",
-    TUTOR: "",
+    COIN: "",
     SYMBOL: "",
     MAX_SUPPLY: 1,
     WEI_COST: 0,
@@ -127,6 +127,7 @@ function App() {
     MARKETPLACE_LINK: "",
     MARKET_LINK: "",
     HANDLE_LINK: "",
+    COIN_LINK: "",
     MAIL_LINK: "",
     SHOW_BACKGROUND: false,
   });
@@ -599,6 +600,10 @@ function App() {
         </ResponsiveWrapper>
         <s.SpacerMedium />
         <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
+                <StyledLink target={"_blank"} href={CONFIG.COIN_LINK}>
+                  {CONFIG.COIN}
+                </StyledLink>
+                <s.SpacerSmall />
         <StyledRoundButton 
           onClick={(e) => {
             window.open(CONFIG.HANDLE_LINK, "_blank");
