@@ -2,8 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { connect } from "./redux/blockchain/blockchainActions";
 import { connect2 } from "./redux/blockchain/tokenActions";
-import { fetchData3 } from "./redux/data/dataActions";
-import { fetchData } from "./redux/data/tokendataActions";
+import { fetchData } from "./redux/data/dataActions";
+import { fetchData2 } from "./redux/data/tokendataActions";
 import * as s from "./styles/globalStyles";
 import styled from "styled-components";
 
@@ -357,8 +357,17 @@ function App() {
                 color: "var(--accent-text)",
               }}
             >
-              {data.Supply} / {CONFIG.MAX_SUPPLY}
+              {data.Stakers}
             </s.TextTitle>
+                    <s.SpacerSmall />
+                      <s.TextDescription
+                        style={{
+                          textAlign: "center",
+                          color: "var(--accent-text)",
+                        }}
+                      >
+                        {tokenId}
+                      </s.TextDescription>
             <s.TextDescription
               style={{
                 textAlign: "center",
@@ -391,7 +400,7 @@ function App() {
               </StyledButton>
             </span>
             <s.SpacerSmall />
-            {Number(data.Supply) >= CONFIG.MAX_SUPPLY ? (
+            {Number(data.Stakers) >= CONFIG.MAX_SUPPLY ? (
               <>
                 <s.TextTitle
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
