@@ -11,7 +11,7 @@
   "SCAN": "CONTRACT",
   "MARKET": "TERRITORY",
   "HANDLE": "TWITTER",
-  "TUTOR": "GUIDE",
+  "COIN": "COIN STAKE",
   "SYMBOL": "EMPEROR",
   "MAX_SUPPLY": 1000,
   "WEI_COST": 1000000000000000000,
@@ -21,6 +21,7 @@
   "MARKETPLACE_LINK": "https://t.me/emperorsclub",
   "MARKET_LINK": "https://app.youngparrotnft.com/core/collections/emperors#Items",
   "HANDLE_LINK": "https://twitter.com/Emperors_club",
+  "COIN_LINK": "https://emperorsclub-coinstake.netlify.app",
   "MAIL_LINK": "mailto:emperors.5star@gmail.com",
   "SHOW_BACKGROUND": true
 }
