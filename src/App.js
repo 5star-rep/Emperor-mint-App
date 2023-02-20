@@ -164,8 +164,7 @@ function App() {
     let gasLimit = CONFIG.GAS_LIMIT;
     let totalGasLimit = String(gasLimit);
     console.log("Gas limit: ", totalGasLimit);
-    setFeedback(`Stake processing...`);
-    setClaimingNft(true);
+    setFeedback(`Stake processing...`); 
     blockchain.smartContract.methods
       .stake(tokenId)
       .send({
@@ -192,7 +191,6 @@ function App() {
     let totalGasLimit = String(gasLimit);
     console.log("Gas limit: ", totalGasLimit);
     setFeedback(`Unstake processing...`);
-    setClaimingNft(true);
     blockchain.smartContract.methods
       .withdraw(tokenId)
       .send({
