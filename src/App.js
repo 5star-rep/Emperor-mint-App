@@ -101,7 +101,7 @@ function App() {
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
   const [claimingNft, setClaimingNft] = useState(false);
-  const [feedback, setFeedback] = useState(`Click mint to buy 1 NFT.`);
+  const [feedback, setFeedback] = useState(`Approve, to proceed.`);
   const [tokenId, setTokenId] = useState(0);
   const [mintAmount] = useState(1);
   const [CONFIG, SET_CONFIG] = useState({
@@ -423,14 +423,13 @@ function App() {
                 <s.TextTitle
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
                 >
-                  1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
-                  {CONFIG.NETWORK.SYMBOL}.
+                  STAKE EMPEROR NFT
                 </s.TextTitle>
                 <s.SpacerXSmall />
                 <s.TextDescription
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
                 >
-                  Excluding gas fees.
+                  to earn EMPEROR coin
                 </s.TextDescription>
                 <s.SpacerSmall />
                 {blockchain.account === "" ||
@@ -567,21 +566,11 @@ function App() {
                       <StyledButton
                         onClick={(e) => {
                           e.preventDefault();
-                          claimNFTs();
-                          getData();
-                        }}
-                      >
-                        MINT
-                      </StyledButton>
-                      <s.SpacerSmall />
-                      <StyledButton
-                        onClick={(e) => {
-                          e.preventDefault();
                           approveStake();
                           getData();
                         }}
                       >
-                        APPROVE STAKE
+                        APPROVE
                       </StyledButton>
                   </>
                 )}
@@ -620,7 +609,7 @@ function App() {
           >
             Please make sure you are connected to the right network (
             {CONFIG.NETWORK.NAME} Mainnet) and with a funded wallet. Please note:
-            After a successful minting, the Supply will increase and that will be your tokenId.
+            Approval is required before calling staking functions.
           </s.TextDescription>
           <s.SpacerSmall />
           <s.TextDescription
@@ -630,8 +619,8 @@ function App() {
             }}
           >
             We have set the gas limit to {CONFIG.GAS_LIMIT} for the contract to
-            successfully mint your NFT. We recommend that you don't lower the
-            gas limit. For Contract address, source code and functions, please click the CONTRACT button above.
+            successfully execute all calls. We recommend that you don't lower the
+            gas limit.
           </s.TextDescription>
         </s.Container>
       </s.Container>
