@@ -103,7 +103,7 @@ function App() {
   const [claimingNft, setClaimingNft] = useState(false);
   const [feedback, setFeedback] = useState(`Approve, to proceed.`);
   const [tokenId, setTokenId] = useState(0);
-  const [amount, setAmount] useState(10000000000000000000);
+  const [amount, setAmount] = useState(10000000000000000000);
   const [mintAmount] = useState(1);
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
