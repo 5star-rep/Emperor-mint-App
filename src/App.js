@@ -103,6 +103,7 @@ function App() {
   const [claimingNft, setClaimingNft] = useState(false);
   const [feedback, setFeedback] = useState(`Approve, to proceed.`);
   const [tokenId, setTokenId] = useState(0);
+  const [amount, setAmount] useState(10000000000000000000);
   const [mintAmount] = useState(1);
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
@@ -294,6 +295,12 @@ function App() {
       newTokenId = 1000;
     }
     setTokenId(newTokenId);
+   
+    let newAmount = amount + 10000000000000000000;
+    if (newAmount > 1000000000000000000000) {
+      newAmount = 1000000000000000000000;
+    }
+    setAmount(newAmount);
   };
 
   const getData = () => {
@@ -484,7 +491,7 @@ function App() {
                           color: "var(--accent-text)",
                         }}
                       >
-                        {tokenId}
+                        {amount}
                       </s.TextDescription>
                       <s.SpacerSmall />
                     <s.Container ai={"center"} jc={"center"} fd={"row"}>
