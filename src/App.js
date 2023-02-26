@@ -496,7 +496,7 @@ function App() {
                           decrementTokenId50();
                         }}
                       >
-                        -50
+                        50-
                       </StyledRoundButton>
                       <s.SpacerMedium />
                       <StyledRoundButton
@@ -507,7 +507,7 @@ function App() {
                           decrementTokenId();
                         }}
                       >
-                        -1
+                        1-
                       </StyledRoundButton>
                       <s.SpacerMedium />
                       <StyledRoundButton
