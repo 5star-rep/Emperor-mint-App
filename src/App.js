@@ -119,7 +119,6 @@ function App() {
     HANDLE: "",
     COIN: "",
     POOL: "",
-    TUTOR: "",
     SYMBOL: "",
     MAX_SUPPLY: 1,
     WEI_COST: 0,
@@ -601,7 +600,7 @@ function App() {
                 </StyledLink>
                 <s.SpacerSmall />
                 <StyledLink target={"_blank"} href=("/config/guide.pdf")>
-                  {CONFIG.TUTOR}
+                  GUIDE
                 </StyledLink>
                 <s.SpacerSmall />
         <StyledRoundButton 
