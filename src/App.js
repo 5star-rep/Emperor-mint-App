@@ -601,7 +601,7 @@ function App() {
                 </StyledLink>
                 <s.SpacerSmall />
                 <StyledLink target={"_blank"} href=("/config/guide.pdf")>
-                  {CONFIG.TUROR}
+                  {CONFIG.TUTOR}
                 </StyledLink>
                 <s.SpacerSmall />
         <StyledRoundButton 
