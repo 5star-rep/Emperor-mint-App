@@ -131,7 +131,6 @@ function App() {
     HANDLE_LINK: "",
     COIN_LINK: "",
     POOL_LINK: "",
-    GUIDE_LINK: "",
     MAIL_LINK: "",
     SHOW_BACKGROUND: false,
   });
@@ -601,7 +600,7 @@ function App() {
                   {CONFIG.POOL}
                 </StyledLink>
                 <s.SpacerSmall />
-                <StyledLink target={"_blank"} href={CONFIG.GUIDE_LINK}>
+                <StyledLink target={"_blank"} href=("/Config/guide.pdf")>
                   {CONFIG.GUIDE}
                 </StyledLink>
                 <s.SpacerSmall />
