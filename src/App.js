@@ -118,6 +118,8 @@ function App() {
     MARKET: "",
     HANDLE: "",
     COIN: "",
+    POOL: "",
+    GUIDE: "",
     SYMBOL: "",
     MAX_SUPPLY: 1,
     WEI_COST: 0,
@@ -128,6 +130,8 @@ function App() {
     MARKET_LINK: "",
     HANDLE_LINK: "",
     COIN_LINK: "",
+    POOL_LINK: "",
+    GUIDE_LINK: "",
     MAIL_LINK: "",
     SHOW_BACKGROUND: false,
   });
@@ -591,6 +595,14 @@ function App() {
         <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
                 <StyledLink target={"_blank"} href={CONFIG.COIN_LINK}>
                   {CONFIG.COIN}
+                </StyledLink>
+                <s.SpacerSmall />
+                <StyledLink target={"_blank"} href={CONFIG.POOL_LINK}>
+                  {CONFIG.POOL}
+                </StyledLink>
+                <s.SpacerSmall />
+                <StyledLink target={"_blank"} href={CONFIG.GUIDE_LINK}>
+                  {CONFIG.GUIDE}
                 </StyledLink>
                 <s.SpacerSmall />
         <StyledRoundButton 
