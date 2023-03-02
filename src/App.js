@@ -591,6 +591,7 @@ function App() {
         </ResponsiveWrapper>
         <s.SpacerSmall />
         <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
+                <s.Container ai={"center"} jc={"center"} fd={"row"}>
                 <StyledLink target={"_blank"} href={CONFIG.COIN_LINK}>
                   {CONFIG.COIN}
                 </StyledLink>
@@ -598,6 +599,7 @@ function App() {
                 <StyledLink target={"_blank"} href={CONFIG.POOL_LINK}>
                   {CONFIG.POOL}
                 </StyledLink>
+                </s.Container>
                 <s.SpacerSmall />
                 <StyledLink target={"_blank"} href={"/config/guide.pdf"}>
                   GUIDE
