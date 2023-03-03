@@ -600,7 +600,7 @@ function App() {
                   {CONFIG.POOL}
                 </StyledLink>
                 </s.Container>
-                <s.SpacerSmall />
+                <s.SpacerMedium />
                 <StyledLink target={"_blank"} href={"/config/guide.pdf"}>
                   GUIDE
                 </StyledLink>
