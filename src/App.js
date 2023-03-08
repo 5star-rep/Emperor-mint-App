@@ -604,6 +604,10 @@ function App() {
                 <StyledLink target={"_blank"} href={"/config/guide.pdf"}>
                   GUIDE
                 </StyledLink>
+                <s.SpacerMedium />
+                <StyledLink target={"_blank"} href={"/config/Emperor Guide 皇帝指导手册.pdf"}>
+                  指导
+                </StyledLink>
                 <s.SpacerSmall />
         <StyledRoundButton 
           onClick={(e) => {
