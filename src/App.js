@@ -119,6 +119,7 @@ function App() {
     HANDLE: "",
     COIN: "",
     POOL: "",
+    COREAPE: "",
     SYMBOL: "",
     MAX_SUPPLY: 1,
     WEI_COST: 0,
@@ -130,6 +131,7 @@ function App() {
     HANDLE_LINK: "",
     COIN_LINK: "",
     POOL_LINK: "",
+    APE_LINK: "",
     MAIL_LINK: "",
     SHOW_BACKGROUND: false,
   });
@@ -600,6 +602,11 @@ function App() {
                   {CONFIG.POOL}
                 </StyledLink>
                 </s.Container>
+                <s.SpacerMedium />
+                <s.SpacerSmall />
+                <StyledLink target={"_blank"} href={CONFIG.APE_LINK}>
+                  {CONFIG.COREAPE}
+                </StyledLink>
                 <s.SpacerMedium />
                 <StyledLink target={"_blank"} href={"/config/guide.pdf"}>
                   GUIDE
