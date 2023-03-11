@@ -603,7 +603,6 @@ function App() {
                 </StyledLink>
                 </s.Container>
                 <s.SpacerMedium />
-                <s.SpacerSmall />
                 <StyledLink target={"_blank"} href={CONFIG.APE_LINK}>
                   {CONFIG.COREAPE}
                 </StyledLink>
