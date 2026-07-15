@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { connect } from "./redux/blockchain/blockchainActions";
-import { connect2 } from "./redux/blockchain/tokenActions";
 import { fetchData } from "./redux/data/dataActions";
-import { fetchData2 } from "./redux/data/tokendataActions";
 import * as s from "./styles/globalStyles";
 import styled from "styled-components";
 
@@ -101,12 +99,10 @@ function App() {
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
   const [claimingNft, setClaimingNft] = useState(false);
-  const [feedback, setFeedback] = useState(`Approve, to proceed.`);
-  const [tokenId, setTokenId] = useState(0);
-  const [mintAmount] = useState(1);
+  const [feedback, setFeedback] = useState(`Click buy to mint your NFT.`);
+  const [mintAmount, setMintAmount] = useState(1);
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
-    TOKEN_ADDRESS: "",
     SCAN_LINK: "",
     NETWORK: {
       NAME: "",
@@ -114,12 +110,6 @@ function App() {
       ID: 0,
     },
     NFT_NAME: "",
-    SCAN: "",
-    MARKET: "",
-    HANDLE: "",
-    COIN: "",
-    POOL: "",
-    COREAPE: "",
     SYMBOL: "",
     MAX_SUPPLY: 1,
     WEI_COST: 0,
@@ -127,12 +117,6 @@ function App() {
     GAS_LIMIT: 0,
     MARKETPLACE: "",
     MARKETPLACE_LINK: "",
-    MARKET_LINK: "",
-    HANDLE_LINK: "",
-    COIN_LINK: "",
-    POOL_LINK: "",
-    APE_LINK: "",
-    MAIL_LINK: "",
     SHOW_BACKGROUND: false,
   });
 
@@ -144,6 +128,7 @@ function App() {
     console.log("Cost: ", totalCostWei);
     console.log("Gas limit: ", totalGasLimit);
     setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
+    setClaimingNft(true);
     blockchain.smartContract.methods
       .mint(blockchain.account, mintAmount)
       .send({
@@ -155,149 +140,32 @@ function App() {
       .once("error", (err) => {
         console.log(err);
         setFeedback("Sorry, something went wrong please try again later.");
+        setClaimingNft(false);
       })
       .then((receipt) => {
         console.log(receipt);
         setFeedback(
-          `WOW, the ${CONFIG.NFT_NAME} is now yours! import to wallet to view it.`
-        );
-        dispatch(fetchData(blockchain.account));
-      });
-  };
-
-  const stakeNft = () => {
-    let gasLimit = CONFIG.GAS_LIMIT;
-    let totalGasLimit = String(gasLimit);
-    console.log("Gas limit: ", totalGasLimit);
-    setFeedback(`Stake processing...`); 
-    blockchain.smartContract.methods
-      .stake(tokenId)
-      .send({
-        gasLimit: String(totalGasLimit),
-        to: CONFIG.CONTRACT_ADDRESS,
-        from: blockchain.account,
-      })
-      .once("error", (err) => {
-        console.log(err);
-        setFeedback("Sorry, something went wrong please try again later.");
-      })
-      .then((receipt) => {
-        console.log(receipt);
-        setFeedback(
-          `Stake successful ✔️`
+          `WOW, the ${CONFIG.NFT_NAME} is yours! go visit Opensea.io to view it.`
         );
         setClaimingNft(false);
         dispatch(fetchData(blockchain.account));
       });
   };
 
-  const unStakeNft = () => {
-    let gasLimit = CONFIG.GAS_LIMIT;
-    let totalGasLimit = String(gasLimit);
-    console.log("Gas limit: ", totalGasLimit);
-    setFeedback(`Unstake processing...`);
-    blockchain.smartContract.methods
-      .withdraw(tokenId)
-      .send({
-        gasLimit: String(totalGasLimit),
-        to: CONFIG.CONTRACT_ADDRESS,
-        from: blockchain.account,
-      })
-      .once("error", (err) => {
-        console.log(err);
-        setFeedback("Sorry, something went wrong please try again later.");
-      })
-      .then((receipt) => {
-        console.log(receipt);
-        setFeedback(
-          `Unstake successful ✔️`
-        );
-        dispatch(fetchData(blockchain.account));
-      });
-  };
-
-  const claimReward = () => {
-    let gasLimit = CONFIG.GAS_LIMIT;
-    let totalGasLimit = String(gasLimit);
-    console.log("Gas limit: ", totalGasLimit);
-    setFeedback(`Claim processing...`);
-    blockchain.smartContract.methods
-      .claimRewards()
-      .send({
-        gasLimit: String(totalGasLimit),
-        to: CONFIG.CONTRACT_ADDRESS,
-        from: blockchain.account,
-      })
-      .once("error", (err) => {
-        console.log(err);
-        setFeedback("Sorry, something went wrong please try again later.");
-      })
-      .then((receipt) => {
-        console.log(receipt);
-        setFeedback(
-          `Claim successful ✔️`
-        );
-        dispatch(fetchData(blockchain.account));
-      });
-  };
-
-  const approveStake = () => {
-    let gasLimit = CONFIG.GAS_LIMIT;
-    let totalGasLimit = String(gasLimit);
-    let stakingContract = String(CONFIG.CONTRACT_ADDRESS);
-    console.log("Gas limit: ", totalGasLimit);
-    setFeedback(`Approve processing...`);
-    blockchain.smartContract.methods
-      .setApprovalForAll(stakingContract, true)
-      .send({
-        gasLimit: String(totalGasLimit),
-        to: CONFIG.TOKEN_ADDRESS,
-        from: blockchain.account,
-      })
-      .once("error", (err) => {
-        console.log(err);
-        setFeedback("Sorry, something went wrong please try again later.");
-      })
-      .then((receipt) => {
-        console.log(receipt);
-        setFeedback(
-          `Approve successful ✔️`
-        );
-        dispatch(fetchData(blockchain.account));
-        dispatch(connect());
-      });
-  };
-
-  const decrementTokenId = () => {
-    let newTokenId = tokenId - 1;
-    if (newTokenId < 1) {
-      newTokenId = 1;
+  const decrementMintAmount = () => {
+    let newMintAmount = mintAmount - 1;
+    if (newMintAmount < 1) {
+      newMintAmount = 1;
     }
-    setTokenId(newTokenId);
+    setMintAmount(newMintAmount);
   };
 
-  const incrementTokenId = () => {
-    let newTokenId = tokenId + 1;
-    if (newTokenId > 1000) {
-      newTokenId = 1000;
+  const incrementMintAmount = () => {
+    let newMintAmount = mintAmount + 1;
+    if (newMintAmount > 50) {
+      newMintAmount = 50;
     }
-    setTokenId(newTokenId);
-  };
-
-  const decrementTokenId50 = () => {
-    let newTokenId = tokenId - 50;
-    if (newTokenId < 0) {
-      newTokenId = 0;
-    }
-    setTokenId(newTokenId);
-  };
-
-  const incrementTokenId50 = () => {
-    let newTokenId = tokenId + 50;
-    if (newTokenId > 1000) {
-      newTokenId = 1000;
-    }
-    setTokenId(newTokenId);
+    setMintAmount(newMintAmount);
   };
 
   const getData = () => {
@@ -333,7 +201,7 @@ function App() {
         style={{ padding: 24, backgroundColor: "var(--primary)" }}
         image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
       >
-        <a href={CONFIG.MAIL_LINK}>
+        <a href={CONFIG.MARKETPLACE_LINK}>
           <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
         </a>
         <s.SpacerSmall />
@@ -362,17 +230,8 @@ function App() {
                 color: "var(--accent-text)",
               }}
             >
-              {data.Stakers}
+              {data.totalSupply} / {CONFIG.MAX_SUPPLY}
             </s.TextTitle>
-                      <s.TextDescription
-                        style={{
-                          textAlign: "center",
-                          color: "var(--accent-text)",
-                        }}
-                      >
-                        stakers
-                      </s.TextDescription>
-                      <s.SpacerSmall />
             <s.TextDescription
               style={{
                 textAlign: "center",
@@ -380,19 +239,24 @@ function App() {
               }}
             >
               <StyledLink target={"_blank"} href={CONFIG.SCAN_LINK}>
-                {truncate(CONFIG.SCAN, 15)}
+                {truncate(CONFIG.CONTRACT_ADDRESS, 15)}
               </StyledLink>
             </s.TextDescription>
-            <s.SpacerSmall />
-            <StyledLink target={"_blank"} href={CONFIG.MARKET_LINK}>
-              {CONFIG.MARKET}
-            </StyledLink>
-            <s.SpacerSmall />
             <span
               style={{
                 textAlign: "center",
               }}
             >
+              <StyledButton
+                onClick={(e) => {
+                  window.open("/config/roadmap.pdf", "_blank");
+                }}
+                style={{
+                  margin: "5px",
+                }}
+              >
+                Roadmap
+              </StyledButton>
               <StyledButton
                 style={{
                   margin: "5px",
@@ -405,7 +269,7 @@ function App() {
               </StyledButton>
             </span>
             <s.SpacerSmall />
-            {Number(data.Stakers) >= CONFIG.MAX_SUPPLY ? (
+            {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
               <>
                 <s.TextTitle
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
@@ -415,11 +279,11 @@ function App() {
                 <s.TextDescription
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
                 >
-                  You can still find {CONFIG.NFT_NAME} in their
+                  You can still find {CONFIG.NFT_NAME} on
                 </s.TextDescription>
                 <s.SpacerSmall />
-                <StyledLink target={"_blank"} href={CONFIG.MARKET_LINK}>
-                  {CONFIG.MARKET}
+                <StyledLink target={"_blank"} href={CONFIG.MARKETPLACE_LINK}>
+                  {CONFIG.MARKETPLACE}
                 </StyledLink>
               </>
             ) : (
@@ -427,13 +291,14 @@ function App() {
                 <s.TextTitle
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
                 >
-                  STAKE EMPEROR NFT
+                  1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
+                  {CONFIG.NETWORK.SYMBOL}.
                 </s.TextTitle>
                 <s.SpacerXSmall />
                 <s.TextDescription
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
                 >
-                  to earn EMPEROR coin
+                  Excluding gas fees.
                 </s.TextDescription>
                 <s.SpacerSmall />
                 {blockchain.account === "" ||
@@ -451,7 +316,7 @@ function App() {
                     <StyledButton
                       onClick={(e) => {
                         e.preventDefault();
-                        dispatch(connect2());
+                        dispatch(connect());
                         getData();
                       }}
                     >
@@ -482,100 +347,50 @@ function App() {
                       {feedback}
                     </s.TextDescription>
                     <s.SpacerMedium />
+                    <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                      <StyledRoundButton
+                        style={{ lineHeight: 0.4 }}
+                        disabled={claimingNft ? 1 : 0}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          decrementMintAmount();
+                        }}
+                      >
+                        -
+                      </StyledRoundButton>
+                      <s.SpacerMedium />
                       <s.TextDescription
                         style={{
                           textAlign: "center",
                           color: "var(--accent-text)",
                         }}
                       >
-                        {tokenId}
+                        {mintAmount}
                       </s.TextDescription>
-                      <s.SpacerSmall />
-                    <s.Container ai={"center"} jc={"center"} fd={"row"}>
-                      <StyledRoundButton
-                        style={{ lineHeight: 0.4 }}
-                        disabled={claimingNft ? 1 : 0}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          decrementTokenId50();
-                        }}
-                      >
-                        50-
-                      </StyledRoundButton>
-                      <s.SpacerMedium />
-                      <StyledRoundButton
-                        style={{ lineHeight: 0.4 }}
-                        disabled={claimingNft ? 1 : 0}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          decrementTokenId();
-                        }}
-                      >
-                        1-
-                      </StyledRoundButton>
                       <s.SpacerMedium />
                       <StyledRoundButton
                         disabled={claimingNft ? 1 : 0}
                         onClick={(e) => {
                           e.preventDefault();
-                          incrementTokenId();
+                          incrementMintAmount();
                         }}
                       >
-                        +1
-                      </StyledRoundButton>
-                      <s.SpacerMedium />
-                      <StyledRoundButton
-                        disabled={claimingNft ? 1 : 0}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          incrementTokenId50();
-                        }}
-                      >
-                        +50
+                        +
                       </StyledRoundButton>
                     </s.Container>
                     <s.SpacerSmall />
                     <s.Container ai={"center"} jc={"center"} fd={"row"}>
                       <StyledButton
+                        disabled={claimingNft ? 1 : 0}
                         onClick={(e) => {
                           e.preventDefault();
-                          stakeNft();
+                          claimNFTs();
                           getData();
                         }}
                       >
-                        STAKE
-                      </StyledButton>
-                      <s.SpacerSmall />
-                      <StyledButton
-                        onClick={(e) => {
-                          e.preventDefault();
-                          unStakeNft();
-                          getData();
-                        }}
-                      >
-                        UNSTAKE
+                        {claimingNft ? "BUSY" : "BUY"}
                       </StyledButton>
                     </s.Container>
-                      <s.SpacerSmall />
-                      <StyledButton
-                        onClick={(e) => {
-                          e.preventDefault();
-                          claimReward();
-                          getData();
-                        }}
-                      >
-                        CLAIM
-                      </StyledButton>
-                      <s.SpacerSmall />
-                      <StyledButton
-                        onClick={(e) => {
-                          e.preventDefault();
-                          approveStake();
-                          getData();
-                        }}
-                      >
-                        APPROVE
-                      </StyledButton>
                   </>
                 )}
               </>
@@ -591,38 +406,8 @@ function App() {
             />
           </s.Container>
         </ResponsiveWrapper>
-        <s.SpacerSmall />
+        <s.SpacerMedium />
         <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
-                <s.Container ai={"center"} jc={"center"} fd={"row"}>
-                <StyledLink target={"_blank"} href={CONFIG.COIN_LINK}>
-                  {CONFIG.COIN}
-                </StyledLink>
-                <s.SpacerSmall />
-                <StyledLink target={"_blank"} href={CONFIG.POOL_LINK}>
-                  {CONFIG.POOL}
-                </StyledLink>
-                </s.Container>
-                <s.SpacerMedium />
-                <StyledLink target={"_blank"} href={CONFIG.APE_LINK}>
-                  {CONFIG.COREAPE}
-                </StyledLink>
-                <s.SpacerMedium />
-                <StyledLink target={"_blank"} href={"/config/guide.pdf"}>
-                  GUIDE
-                </StyledLink>
-                <s.SpacerMedium />
-                <StyledLink target={"_blank"} href={"/config/Emperor Guide 皇帝指导手册.pdf"}>
-                  指导
-                </StyledLink>
-                <s.SpacerSmall />
-        <StyledRoundButton 
-          onClick={(e) => {
-            window.open(CONFIG.HANDLE_LINK, "_blank");
-          }}
-        >
-          🐦
-        </StyledRoundButton>
-        <s.SpacerSmall />
           <s.TextDescription
             style={{
               textAlign: "center",
@@ -630,8 +415,8 @@ function App() {
             }}
           >
             Please make sure you are connected to the right network (
-            {CONFIG.NETWORK.NAME} Mainnet) and with a funded wallet. Please note:
-            Approval is required before calling staking functions.
+            {CONFIG.NETWORK.NAME} Mainnet) and the correct address. Please note:
+            Once you make the purchase, you cannot undo this action.
           </s.TextDescription>
           <s.SpacerSmall />
           <s.TextDescription
@@ -641,7 +426,7 @@ function App() {
             }}
           >
             We have set the gas limit to {CONFIG.GAS_LIMIT} for the contract to
-            successfully execute all calls. We recommend that you don't lower the
+            successfully mint your NFT. We recommend that you don't lower the
             gas limit.
           </s.TextDescription>
         </s.Container>
