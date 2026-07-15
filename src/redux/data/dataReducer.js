@@ -1,6 +1,6 @@
 const initialState = {
   loading: false,
-  Stakers: 0,
+  _LuckyPay: 0,
   cost: 0,
   error: false,
   errorMsg: "",
@@ -19,7 +19,7 @@ const dataReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        Stakers: action.payload.Stakers,
+        _LuckyPay: action.payload._LuckyPay,
         // cost: action.payload.cost,
         error: false,
         errorMsg: "",
