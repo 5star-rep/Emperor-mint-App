@@ -230,7 +230,7 @@ function App() {
                 color: "var(--accent-text)",
               }}
             >
-              {data._LuckyPay}
+              {data._luckyPay}
             </s.TextTitle>
             <s.TextDescription
               style={{
@@ -269,7 +269,7 @@ function App() {
               </StyledButton>
             </span>
             <s.SpacerSmall />
-            {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
+            {Number(data._luckyPay) >= CONFIG.MAX_SUPPLY ? (
               <>
                 <s.TextTitle
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
