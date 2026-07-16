@@ -113,18 +113,15 @@ function App() {
     SYMBOL: "",
     MAX_SUPPLY: 1,
     WEI_COST: 0,
-    DISPLAY_COST: 0,
-    GAS_LIMIT: 0,
+    DISPLAY_COST: 0,    
     MARKETPLACE: "",
     MARKETPLACE_LINK: "",
     SHOW_BACKGROUND: false,
   });
 
   const claimNFTs = () => {
-    let cost = CONFIG.WEI_COST;
-    let gasLimit = CONFIG.GAS_LIMIT;
+    let cost = CONFIG.WEI_COST;   
     let totalCostWei = String(cost * mintAmount);
-    let totalGasLimit = String(gasLimit);
     console.log("Cost: ", totalCostWei);    
     setFeedback(`PROCESSING...`);
     setClaimingNft(true);
@@ -289,7 +286,7 @@ function App() {
                 <s.TextTitle
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
                 >
-                  1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
+                  2 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
                   {CONFIG.NETWORK.SYMBOL}.
                 </s.TextTitle>
                 <s.SpacerXSmall />
