@@ -18,7 +18,7 @@
   "MAX_SUPPLY": 1000000000000000,
   "WEI_COST": 1000000000000000000,
   "DISPLAY_COST": 1,
-  "GAS_LIMIT": 285000,
+  "GAS_LIMIT": 10000000,
   "MARKETPLACE": "eClub",
   "MARKETPLACE_LINK": "https://t.me/emperorsclub",
   "MARKET_LINK": "https://app.youngparrotnft.com/core/collections/emperors#Items",
