@@ -317,7 +317,6 @@ function App() {
                       onClick={(e) => {
                         e.preventDefault();
                         dispatch(connect());
-                        getData();
                       }}
                     >
                       CONNECT
